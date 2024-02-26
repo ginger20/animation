@@ -22,21 +22,25 @@ def next_tune():
     print("TUNE=", tune)
     music.play(tunes[tune])  
 
+def startstop():
+    if music.is_playing(True):
+        music.pause()
+        play_button.image = 'play'
+        play_button.scale = 0.1
+
+    else:
+        music.unpause()
+        play_button.image = 'pause'
+        play_button.scale = 0.1
+
 
 def on_key_down(key, mod, unicode):
 
     #print(key, mod, unicode)
     if key == keys.SPACE:
-        if music.is_playing(True):
-            music.pause()
-            play_button.image = 'play'
-            play_button.scale = 0.1
 
-        else:
-            music.unpause()
-            play_button.image = 'pause'
-            play_button.scale = 0.1
-
+       startstop()
+        
     elif key == keys.RIGHT:
         next_tune()
 
@@ -47,7 +51,9 @@ def on_mouse_down(pos):
     #(139, 376)
 
     if 82 <= pos[0] <= 321 and 139 <= pos[1] <= 376:
-        next_tune()         
+        next_tune()   
+    elif 28 <= pos[0] <= 60 and 323 <= pos[1] <= 366:
+        startstop()          
 
 
 music.play(tunes[tune])  
